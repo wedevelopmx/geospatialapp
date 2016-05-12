@@ -1,0 +1,16 @@
+<ui-gmap-google-map center='mapService.map.center' zoom='mapService.map.zoom' events="mapService.map.events">
+	<!--Markers: Finance Entities-->
+    <ui-gmap-marker ng-repeat="m in mapService.map.markers" coords="m.location"  idKey="m.id" options="m.options" events="m.events">
+        <!--Markers: Pop Up details about Finance Entities-->
+        <ui-gmap-window
+			coords='m.location'
+			templateParameter='m'
+			templateUrl='mapService.map.markerWindows[m.window.name].templateUrl'
+			options='mapService.map.markerWindows[m.window.name].options'>
+		</ui-gmap-window>
+	</ui-gmap-marker>
+
+	<!-- Select marker -->
+	<ui-gmap-marker coords="mapService.map.clickedMarker.coords"  idKey="mapService.map.clickedMarker.id" options="mapService.map.clickedMarker.options">
+    </ui-gmap-marker>
+</ui-gmap-google-map>

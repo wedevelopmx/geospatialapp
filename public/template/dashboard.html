@@ -1,0 +1,69 @@
+<div class="full-screen">
+    <div class="map">
+        <markersmap marker="marker" markers="projects"></markersmap>
+    </div>
+    <div class="data">
+        <div class="col-sm-6" ng-repeat="project in projects">
+            <projectsummary project="project" actions="actions"></projectsummary>
+        </div>
+    </div>
+</div>
+
+<!--  Map Sample
+
+<div class="row">
+    <div class="col-sm-6">
+        <openlayers ol-center="london" ol-defaults="defaults" height="400">
+            <ol-marker ng-repeat="marker in markers" lat="marker.lat" lon="marker.lon"></ol-marker>
+        </openlayers>
+    </div>
+    <div class="col-sm-6">
+        <input type="button" ng-click="projection='EPSG:3857'" value="EPSG:3857" />
+        <input type="button" ng-click="projection='EPSG:4326'" value="EPSG:4326" />
+        <h3>Mouse position</h3>
+        <pre ng-bind="mouseposition | json"></pre>
+        <h3>Mouse click position</h3>
+        <pre ng-bind="mouseclickposition | json"></pre>
+    </div>
+</div>
+ -->
+<!-- <div class="block-header">
+    <h2>Basic Examples</h2>
+
+    <ul class="actions">
+        <li>
+            <a href="">
+                <i class="fa fa-trending-up"></i>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-check-all"></i>
+            </a>
+        </li>
+        <li class="dropdown" uib-dropdown="">
+            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="" uib-dropdown-toggle="">
+                <i class="fa fa-more-vert"></i>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a href="">Refresh</a>
+                </li>
+                <li>
+                    <a href="">Manage Widgets</a>
+                </li>
+                <li>
+                    <a href="">Widgets Settings</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="col-sm-4" ng-repeat="project in projects">
+        <projectsummary project="project"></projectsummary>
+    </div>
+</div>
+ -->

@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header ch-alt m-b-20">
+        <h2>{{project.title}} <small ng-bind="project.description"></small></h2>
+        <ul class="actions">
+            <li>
+                <a ng-click="see(project)"><i class="fa fa-eye"></i></a>
+            </li>
+            <li>
+                <a href="#/project/{{project.id}}" target="blank"><i class="fa fa-external-link"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body">
+        <singlemarkermap marker="project"></singlemarkermap>
+    </div>
+
+    <div class="card-body card-padding">
+        <small>Lorem ipsum mola</small>
+    </div>
+</div>

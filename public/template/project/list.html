@@ -1,0 +1,31 @@
+<div class="block-header">
+    <h2>Projects</h2>
+
+    <ul class="actions">
+        <li>
+            <input class="search-input" type="text" placeholder="Search" ng-model="search">
+        </li>
+        <li id="top-search">
+            <a href="">
+                <i class="fa fa-search"></i>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-th-large"></i>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-th-list"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+<div class="row">
+    <div class="col-sm-4" ng-repeat="project in projects | filter:search">
+        <projectsummary project="project"></projectsummary>
+    </div>
+    <a class="btn bgm-red btn-float waves-effect" href="#/project"><i class="fa fa-plus"></i></a>
+</div>

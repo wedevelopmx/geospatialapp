@@ -1,0 +1,79 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#main {
+	position: relative;
+	padding-bottom: 50px;
+	padding-top: 50px;	
+}
+
+#content {
+	/*padding: 1rem;*/
+}
+
+#content .btn-float {
+	right: 25px;
+	bottom: 0px;
+	z-index: 1;
+}
+
+.row {
+	position: relative;
+}
+
+.bgm-red {
+	background-color: #f44336 !important
+}
+
+.search-input {
+    height: 18px;
+    font-size: 0.8rem;
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    border-width: 0px 0px 1px;
+    border-style: none none solid;
+    border-color: -moz-use-text-color -moz-use-text-color rgb(255, 255, 255);
+    border-radius: 0px;
+}
+
+.single-marker-map {
+    max-height: 200px;
+}
+
+.markers-map {
+    height: 100%;
+}
+
+.full-screen {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.data {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: #f7f7f7;
+}
+
+.map {
+    position: fixed;
+    right: 0;
+    left: auto;
+    top: 50px;
+    bottom: 0;
+    display: block;
+    width: 40%;
+}

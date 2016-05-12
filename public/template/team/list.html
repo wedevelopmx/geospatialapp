@@ -1,0 +1,58 @@
+<h1>Team</h1>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="card">
+			<div class="card-header ch-alt m-b-20">
+			    <h2>Our Team <small> You can see our awesome team.</small></h2>
+			    <ul class="actions">
+			        <li>
+			            <a href="#/project/{{project.id}}"><i class="fa fa-external-link"></i></a>
+			        </li>
+			    </ul>
+			</div>
+
+			<div class="card-body card-padding">
+				<table class="table">
+					<tr ng-repeat="user in team">
+						<td ng-bind="user.id">Placeholder</td>
+						<td ng-bind="user.name">Placeholder</td>
+						<td ng-bind="user.email">Placeholder</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="card">
+			<div class="card-header ch-alt m-b-20">
+			    <h2>Add New User <small> Here you can add a new users.</small></h2>
+			    <ul class="actions">
+			        <li>
+			            <a href="#/project/{{project.id}}"><i class="fa fa-external-link"></i></a>
+			        </li>
+			    </ul>
+
+			    <!-- <button class="btn bgm-red btn-float waves-effect"><i class="fa fa-eye"></i></button> -->
+			</div>
+
+			<div class="card-body card-padding">
+                <form ng-submit="createUser()">
+                    <div class="form-group">
+                        <label for="project_name">Name: </label>
+                        <input class="form-control input-sm" type="text" ng-model="user.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_name">email: </label>
+                        <input class="form-control input-sm" type="email" ng-model="user.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="user_name">password: </label>
+                        <input class="form-control input-sm" type="password" ng-model="user.password">
+                    </div>
+                    
+                    <button class="btn btn-primary btn-sm m-t-10 waves-effect" type="submit">Submit</button>
+                </form>
+		    </div>
+		</div>
+	</div>
+</div>
