@@ -1,15 +1,13 @@
-<div class="selection-map">
-	<form class="form-inline">
-	  <div class="form-group">
-	    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-	    <div class="input-group">
-	      <div class="input-group-addon">$</div>
-	      <input type="text" class="form-control input-sm" id="exampleInputAmount" placeholder="Amount">
-	      <div class="input-group-addon">.00</div>
-	    </div>
-	  </div>
-	 </form>
+<section class="selection-map">
+	<div class="search-box">
+		<i class="fa fa-search"></i><input ng-model="search" type="text" placeholder="Search">
+		<ul class="result">
+			<li class="item" ng-repeat="item in result" ng-click="setCenter(item)">
+				<span ng-bind="item.display_name"></span>
+			</li>
+		</ul>
+	</div>
 	<openlayers ol-center="config.center" ol-defaults="defaults" height="400">
 	    <ol-marker ol-marker-properties="marker" ></ol-marker>
 	</openlayers>
-</div>
+</section>

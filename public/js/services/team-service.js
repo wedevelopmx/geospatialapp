@@ -9,7 +9,6 @@ angular.module('geospatial')
 			delete: { method: 'DELETE', isArray: true }});
 	
 	this.query = function() {
-		console.log('query');
 		return self.userAPI.query();
 	}
 	

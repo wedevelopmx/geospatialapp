@@ -2,11 +2,11 @@
     <div class="profile-menu">
         <a href="" toggle-submenu>
             <div class="profile-pic">
-                <img src="img/cristian.png" alt="">
+                <img src="{{user.profileimageurl}}" alt="">
             </div>
 
             <div class="profile-info">
-                Cristian
+                <span ng-bind="user.displayname">Guest</span>
                 <i class="fa fa-gear"></i>
             </div>
         </a>
@@ -29,13 +29,13 @@
 
     <ul class="main-menu">
         
-        <li class="active">
+        <li>
             <a href="#/"><i class="fa fa-home"></i> Home</a>
         </li>
-        <li>
+        <li permission="['admin']">
             <a href="#/projects"><i class="fa fa-suitcase"></i> Proyectos</a>
         </li>
-        <li>
+        <li permission="['admin']">
             <a href="#/team"><i class="fa fa-users"></i> Equipo</a>
         </li>
         

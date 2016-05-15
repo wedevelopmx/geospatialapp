@@ -17,6 +17,19 @@ angular.module('geospatial')
             projection: 'EPSG:4326'
         };   
 
+
+        $scope.projectLocation = {};
+
+        $scope.$watch('projectLocation', function(newVal) {
+            if(newVal.address !== undefined) {
+                $scope.project.location = newVal.display_name;
+                $scope.project.country = newVal.address.country;
+                $scope.project.state = newVal.address.state;
+                $scope.project.city = newVal.address.city;
+                $scope.project.postcode = newVal.address.postcode;
+            }
+        });
+
         $scope.createProject = function() {
             $scope.projects.push(ProjectService.save($scope.project));
             $location.path( "/projects" );

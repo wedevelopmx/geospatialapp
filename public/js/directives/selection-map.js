@@ -7,14 +7,17 @@ angular.module('geospatial')
 			transclude: true,
 			scope: {
 				config: '=',
-				marker: '='
+				marker: '=',
+				location: '='
 			},
-			controller: ['$scope', 'MapService', function($scope, MapService) {
+			controller: ['$scope', '$http', 'MapService', function($scope, $http, MapService) {
 				$scope.defaults = {
 	                events: {
 	                    map: [ 'singleclick', 'pointermove' ]
 	                }
 	            };
+
+	            $scope.result = [];
 
 				$scope.$on('openlayers.map.singleclick', function(event, data) {
 		            $scope.$apply(function() {
@@ -23,7 +26,27 @@ angular.module('geospatial')
 		            	$scope.marker.lon = location.lon;
 		            	$scope.marker.projection = location.projection;
 		            });
-		        });				
+		        });			
+
+		        $scope.$watch('search', function(newVal, oldVal) {
+		        	if(newVal === undefined || newVal.length < 5)
+		        		return;
+		        	var url = 'http://nominatim.openstreetmap.org/search/' + newVal + '?format=json&addressdetails=1&limit=10';
+		        	$http.get(url).success(function(data){
+		        		$scope.result = [];
+		        		for(i in data) {
+		        			$scope.result.push(data[i]);
+		        		}
+		        	});
+		        });
+
+		        $scope.setCenter = function(item) {
+	        		$scope.config.center.lat = $scope.marker.lat = parseFloat(item.lat);
+		            $scope.config.center.lon = $scope.marker.lon = parseFloat(item.lon);		        	
+		            $scope.config.center.zoom = 10;
+		        	$scope.location = item;
+		        	$scope.result = [];
+		        };
 
 			}],
 			link: function(scope, element, attr) {

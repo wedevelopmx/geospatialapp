@@ -1,77 +1,95 @@
-<div class="block-header">
-    <h2>Add New Project</h2>
+<div class="content">
+    <div class="block-header">
+        <h2>Add New Project</h2>
 
-    <ul class="actions">
-        <li>
-            <a href="">
-                <i class="fa fa-trending-up"></i>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <i class="fa fa-check-all"></i>
-            </a>
-        </li>
-        <li class="dropdown" uib-dropdown="">
-            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="" uib-dropdown-toggle="">
-                <i class="fa fa-more-vert"></i>
-            </a>
+        <ul class="actions">
+            <li>
+                <a href="">
+                    <i class="fa fa-trending-up"></i>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i class="fa fa-check-all"></i>
+                </a>
+            </li>
+            <li class="dropdown" uib-dropdown="">
+                <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="" uib-dropdown-toggle="">
+                    <i class="fa fa-more-vert"></i>
+                </a>
 
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                    <a href="">Refresh</a>
-                </li>
-                <li>
-                    <a href="">Manage Widgets</a>
-                </li>
-                <li>
-                    <a href="">Widgets Settings</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<div class="card">
-	<div class="card-header ch-alt m-b-20">
-	    <h2>Add New Project <small> Here you can add a new project.</small></h2>
-	    <ul class="actions">
-	        <!-- <li>
-	            <a href=""><i class="fa fa-edit"></i></a>
-	        </li> -->
-	        <li>
-	            <a href="#/project/{{project.id}}"><i class="fa fa-external-link"></i></a>
-	        </li>
-	    </ul>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="">Refresh</a>
+                    </li>
+                    <li>
+                        <a href="">Manage Widgets</a>
+                    </li>
+                    <li>
+                        <a href="">Widgets Settings</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="card">
+    	<div class="card-header ch-alt m-b-20">
+    	    <h2>Add New Project <small> Here you can add a new project.</small></h2>
+    	    <ul class="actions">
+    	        <!-- <li>
+    	            <a href=""><i class="fa fa-edit"></i></a>
+    	        </li> -->
+    	        <li>
+    	            <a href="#/project/{{project.id}}"><i class="fa fa-external-link"></i></a>
+    	        </li>
+    	    </ul>
 
-	    <!-- <button class="btn bgm-red btn-float waves-effect"><i class="fa fa-eye"></i></button> -->
-	</div>
+    	    <!-- <button class="btn bgm-red btn-float waves-effect"><i class="fa fa-eye"></i></button> -->
+    	</div>
 
-	<div class="card-body card-padding">
-        <div class="row"> 
-            <div class="col-sm-5">
-                <form ng-submit="createProject()">
-                    <div class="form-group">
-                        <label for="project_name">Name: </label>
-                        <input class="form-control input-sm" type="text" ng-model="project.title">
-                    </div>
-                    <div class="form-group">
-                        <label for="project_name">Description: </label>
-                        <textarea class="form-control input-sm" ng-model="project.description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="project_name">Latitud: </label>
-                        <input class="form-control input-sm" type="text" ng-model="project.lat">
-                    </div>
-                    <div class="form-group">
-                        <label for="project_name">Logitud: </label>
-                        <input class="form-control input-sm" type="text" ng-model="project.lon">
-                    </div>
-                    <input type="hidden" ng-model="project.UserId" value="1">
-                    <button class="btn btn-primary btn-sm m-t-10 waves-effect" type="submit">Submit</button>
-                </form>
-            </div>
-            <div class="col-sm-7">
-                <selectionmap config="mapConfig" marker="project"></selectionmap>
+    	<div class="card-body card-padding">
+            <div class="row"> 
+                <div class="col-sm-5">
+                    <form ng-submit="createProject()">
+                        <div class="form-group">
+                            <label for="project_name">Name: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.title">
+                        </div>
+                        <div class="form-group">
+                            <label for="project_name">Description: </label>
+                            <textarea class="form-control input-sm" ng-model="project.description"></textarea>
+                        </div>
+                        <div class="form-group form-half">
+                            <label for="project_name">Country: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.country">
+                        </div>
+                        <div class="form-group form-half">
+                            <label for="project_name">State: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.state">
+                        </div>
+                        <div class="form-group form-half">
+                            <label for="project_name">City: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.city">
+                        </div>
+                        <div class="form-group form-half">
+                            <label for="project_name">Post Code: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.postcode">
+                        </div>
+                        <div class="form-group">
+                            <label for="project_name">Latitud: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.lat">
+                        </div>
+                        <div class="form-group">
+                            <label for="project_name">Logitud: </label>
+                            <input class="form-control input-sm" type="text" ng-model="project.lon">
+                        </div>
+                        <input type="hidden" ng-model="project.UserId" value="{{user.id}}">
+                        <button class="btn btn-primary btn-sm m-t-10 waves-effect" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div class="col-sm-7">
+                    <selectionmap location="projectLocation" config="mapConfig" marker="project"></selectionmap>
+                </div>
             </div>
         </div>
     </div>
