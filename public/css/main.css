@@ -8343,6 +8343,12 @@ fieldset[disabled] .btn-inverse:active {
   position: relative;
   float: left;
 }
+.card .card-body.card-padding {
+  min-height: 75px;
+}
+.card .card-header.ch-alt.m-b-20 {
+  min-height: 100px;
+}
 .single-marker-map {
   max-height: 200px;
 }
