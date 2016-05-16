@@ -1,7 +1,7 @@
 angular.module('geospatial')
 	.controller('DashboardController', ['$scope', 'ProjectService', 'TemplateService', function($scope, ProjectService, TemplateService) {
 		ProjectService.query().$promise.then(function(data) {
-            console.log(data);
+            //console.log(data);
             for (var i = 0; i < data.length; i++) {
                 data[i].label = {
                     message: TemplateService.compileTemplate('project-popup', data[i]),

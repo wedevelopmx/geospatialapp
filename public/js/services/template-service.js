@@ -21,7 +21,7 @@ angular.module('geospatial')
 
 		this.compileTemplate = function(templateName, data) {
 			var template = _.template(_self.templates[templateName]);
-			console.log(data);
+			//console.log(data);
 			return template(data);
 		};
 	}]);

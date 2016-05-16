@@ -28,6 +28,43 @@ angular.module('geospatial')
         }
     };
 
+    auth.userIsLoggedIn = function() {
+        var deferred = $q.defer();
+        if(auth.isLoggedIn()) {
+            deferred.resolve();
+        } else {
+            $http.get('/auth/loggedin')
+                .success(function(user){ 
+                    auth.loggedIn(user);  
+                    if(!auth.isLoggedIn())
+                        deferred.reject();
+                    deferred.resolve();
+                });
+        } 
+
+        return deferred.promise;
+    };
+
+    auth.userHasPermissionForView = function(view) {
+        var deferred = $q.defer();
+
+        var policy = policies[view];
+        if(!policy.permissions || !policy.permissions.length){
+            deferred.resolve({type: 'success', text: 'View is public.'});
+        } else {
+            auth.userIsLoggedIn()
+                .then(function() {
+                    if(auth.userHasPermission(policy.permissions))
+                        deferred.resolve({type: 'success', text: 'User has permissions.'}); 
+                    else 
+                        deferred.reject({type: 'danger', text: 'User has NOT permissions.'}); 
+                }, function() {
+                    deferred.reject({type: 'danger', text: 'View is private, please login.'}); 
+                });
+        }
+        return deferred.promise;
+    };
+
     auth.loggedIn = function(data) {
         $sessionStorage.user = data;    
         $rootScope.user = $sessionStorage.user;
@@ -57,29 +94,29 @@ angular.module('geospatial')
     };
      
      
-    auth.checkPermissionForView = function(view) {
-        var route = $sessionStorage.policies[view]
+    // auth.checkPermissionForView = function(view) {
+    //     var route = $sessionStorage.policies[view]
 
-        if (!route.requiresAuthentication) {
-            return true;
-        }
+    //     if (!route.requiresAuthentication) {
+    //         return true;
+    //     }
          
-        return auth.userHasPermissionForView(view);
-    };
+    //     return auth.userHasPermissionForView(view);
+    // };
      
      
-    auth.userHasPermissionForView = function(view){
-        if(!auth.isLoggedIn()){
-            return false;
-        }
-        console.log(view);
-        var policy = policies[view];
-        if(!policy.permissions || !policy.permissions.length){
-            return true;
-        }
+    // auth.userHasPermissionForView = function(view){
+    //     if(!auth.isLoggedIn()){
+    //         return false;
+    //     }
+    //     console.log(view);
+    //     var policy = policies[view];
+    //     if(!policy.permissions || !policy.permissions.length){
+    //         return true;
+    //     }
          
-        return auth.userHasPermission(policy.permissions);
-    };
+    //     return auth.userHasPermission(policy.permissions);
+    // };
      
      
     auth.userHasPermission = function(permissions){
@@ -93,7 +130,7 @@ angular.module('geospatial')
                 if ($sessionStorage.user.user_permissions.indexOf(permission) >= 0){
                     console.log('User with role: ' + permission);
                     found = true;
-                    return;
+                    return found;
                 }                        
             });
         }
