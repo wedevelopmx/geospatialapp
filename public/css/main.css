@@ -8364,6 +8364,8 @@ fieldset[disabled] .btn-inverse:active {
 }
 .data {
   position: fixed;
+  display: flex;
+  flex-flow: row wrap;
   top: 50px;
   left: 0;
   bottom: 0;
