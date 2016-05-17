@@ -31,8 +31,12 @@ angular.module('geospatial')
         });
 
         $scope.createProject = function() {
-            $scope.projects.push(ProjectService.save($scope.project));
-            $location.path( "/projects" );
+            ProjectService.save($scope.project).$promise
+                .then(function(project) {
+                    console.log(project);
+                    $scope.projects.push(project);
+                    $location.path( "/projects" );
+                });
         };
         
 	}]);
