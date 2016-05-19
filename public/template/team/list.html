@@ -13,9 +13,14 @@
 
 			<div class="card-body card-padding">
 				<table class="table">
+					<thead>
+						<th></th>
+						<th>Name</th>
+						<th>Email</th>
+					</thead>
 					<tr ng-repeat="user in team">
-						<td ng-bind="user.id">Placeholder</td>
-						<td ng-bind="user.name">Placeholder</td>
+						<td><img src="{{user.profileimageurl}}"></td>
+						<td ng-bind="user.displayname">Placeholder</td>
 						<td ng-bind="user.email">Placeholder</td>
 					</tr>
 				</table>
