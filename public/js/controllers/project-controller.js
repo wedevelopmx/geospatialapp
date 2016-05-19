@@ -18,6 +18,7 @@ angular.module('geospatial')
         };   
 
 
+        // PROJECT CREATE
         $scope.projectLocation = {};
 
         $scope.$watch('projectLocation', function(newVal) {

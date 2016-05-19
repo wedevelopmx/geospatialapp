@@ -1,4 +1,4 @@
-angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-directive', 'angular-underscore'])
+angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-directive', 'angular-underscore', 'ui.bootstrap'])
 	.config(['$httpProvider', function($httpProvider) {  
 		// $httpProvider.interceptors.push(function($q, $location,$rootScope) { 
 		// 	return { 
@@ -57,6 +57,16 @@ angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-
 		'/user': {
 			templateUrl: 'template/team/new.html',
 			controller: 'TeamController',
+			permissions: ['admin']
+		},
+		'/surveys': {
+			templateUrl: 'template/survey/list.html',
+			controller: 'SurveyController',
+			permissions: ['admin']
+		},
+		'/survey/:id': {
+			templateUrl: 'template/survey/new.html',
+			controller: 'SurveyController',
 			permissions: ['admin']
 		}		
 	})

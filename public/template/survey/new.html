@@ -1,0 +1,17 @@
+<div class="card-container">
+	<div class="card">
+	    <div class="card-header ch-alt m-b-20">
+	    	<h2 ng-bind="survey.title"></h2>
+	    	<small ng-bind="survey.description"></small>
+	    </div>
+	    <div class="card-body">
+	    	<div class="survey">
+				<survey-section section="section" ng-repeat="section in survey.sections | orderBy: order">
+				</survey-section>
+				<section>
+					<button class="btn" ng-click="addSection()">Add New Section</button>
+				</section>
+			</div>
+	    </div>
+	</div>
+</div>

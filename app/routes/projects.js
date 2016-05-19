@@ -12,7 +12,8 @@ router
 		});
 	})
 	.get('/:id', function(req, res, next) {
-		models.Project.findById(req.params.id).then(function(project) {
+		models.Project.findOne({ where: {id: req.params.id}, include: [ models.User ] })
+		.then(function(project) {
 		  res.json(project);
 		});
 	})

@@ -1,0 +1,97 @@
+<div class="card-container flex-grid">
+	<div class="grid-element" ng-repeat="survey in surveys">
+		<div class="card survey-card">
+		    <div class="card-header ch-alt m-b-20">
+		    	<h2 ng-bind="survey.title"></h2>
+		    	<small ng-bind="survey.description"></small>
+		    </div>
+		    <div class="card-body">
+		    </div>
+		    <div class="card-footer">
+		    	<ul class="card-actions">
+		    		<li>
+		    			<a href="#/survey/{{survey.id}}"><i class="fa fa-pencil"></i></a>
+		    		</li>
+		    		<li>
+		    			<a href="#/survey/{{survey.id}}"><i class="fa fa-close"></i></a>
+		    		</li>
+		    	</ul>
+		    </div>
+		</div>
+	</div>
+	<div class="grid-element" ng-show="activeForm">
+		<!--Form Card-->
+		<div class="card survey-card">
+			<form ng-submit="createSurvey()">
+		    <div class="card-header ch-alt m-b-20">
+		    	<h2><input type="text" placeholder="New Survey" ng-model="survey.title"></h2>
+		    	<small><input type="text" placeholder="Survey Description" ng-model="survey.description"></small>
+		    </div>
+		    <div class="card-body">
+		    </div>
+		    <div class="card-footer">
+		    	<ul class="card-actions">
+		    		<li>
+		    			<a ng-click="createSurvey()"><i class="fa fa-save"></i></a>
+		    		</li>
+		    		<li>
+		    			<a><i class="fa fa-pencil"></i></a>
+		    		</li>
+		    		<li>
+		    			<a><i class="fa fa-close"></i></a>
+		    		</li>
+		    	</ul>
+		    </div>
+			</form>
+		</div>
+	</div>
+	<a class="btn bgm-red btn-float waves-effect" ng-hide="activeForm" ng-click="activeForm = true"><i class="fa fa-plus"></i></a>
+</div>
+
+<!-- <div class="row">
+	<div class="col-sm-5">
+		<table class="table">
+			<thead>
+				<th>Title</th>
+				<th>Modified</th>
+				<th>Responses</th>
+				<th>Actions</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="survey in surveys">
+					<td ng-bind="survey.title"></td>
+					<td ng-bind="survey.updatedAt | date"></td>
+					<td ng-bind="survey.responses"></td>
+					<td>
+						<a href="#/survey/{{survey.id}}"><i class="fa fa-pencil"></i></a>
+					</td>
+				</tr>
+				<tr ng-show="activeForm">
+					<td colspan="4">
+						<form ng-submit="createSurvey()">
+							<div class="form-group">
+								<label for="name">Name: </label>
+								<input id="name" class="form-control input-sm" ng-model="survey.title">
+							</div>
+							<div class="form-group">
+								<label for="name">Description: </label>
+								<textarea id="description" class="form-control input-sm" ng-model="survey.description"></textarea>
+							</div>
+							<input type="hidden" ng-model="survey.UserId" value="{{user.id}}">
+							<button class="btn btn-primary btn-sm m-t-10 waves-effect" type="submit">Submit</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<button class="btn btn" ng-hide="activeForm" ng-click="activeForm = true">New Survey</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-7">
+
+	</div>
+</div>
+ -->

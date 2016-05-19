@@ -1,0 +1,32 @@
+<li class="question">
+	<div class="question-header">
+		<span class="title" ng-cloak>{{section.order + '.' + question.order}}
+			<input type="text" ng-change="questionUpdate()" ng-model="question.title" placeholder="Question #{{question.order}}"></span>
+		<ul class="actions">
+			<li ng-show="question.id == undefined">
+				<a ng-click="saveQuestion()"><i class="fa fa-save"></a></i>
+			</li>
+			<li ng-hide="question.id == undefined">
+				<a ng-click="addAnswer(question)"><i class="fa fa-plus"></a></i>
+			</li>
+			<li ng-hide="question.collapse">
+				<a ng-click="question.collapse = true"><i class="fa fa-minus-square question-circle"></a></i>
+			</li>
+			<li ng-show="question.collapse">
+				<a ng-click="question.collapse = false"><i class="fa fa-plus-square question-circle"></a></i>
+			</li>
+			<li>
+				<a><i class="fa fa-reorder"></a></i>
+			</li>
+		</ul>
+	</div>
+	<div class="answers-box" ng-hide="question.collapse">
+		<ul class="answers">
+			<answer question="question" answer="answer" ng-repeat="answer in question.answers"></answer>
+		</ul>
+		<div class="settings">
+			<i class="fa fa-question-circle"></i>
+			<textarea ng-model="question.description" ng-change="questionUpdate()" placeholder="Provide information about the topic"></textarea>
+		</div>
+	</div>
+</li>

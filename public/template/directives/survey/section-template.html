@@ -1,0 +1,37 @@
+<section class="section">
+	<div class="section-header">
+		<h4 class="title" ng-cloak>{{ section.order + '. '}}
+			<input type="text" ng-model="section.title" ng-change="sectionUpdate(section)" placeholder="Your new section"></h4>
+		<ul class="actions">
+			<li ng-show="section.id == undefined ">
+				<a ng-click="saveSection()"><i class="fa fa-save"></i></a>
+			</li>
+			<li class="dropdown" uib-dropdown ng-hide="section.id == undefined">
+				<a class="dropdown-toggle" uib-dropdown-toggle ><i class="fa fa-plus"></a></i>
+				<ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                    <li>
+                        <a ng-click="addQuestion('text-input')">Sigle Textbox</a>
+                    </li>
+                    <li>
+                        <a ng-click="addQuestion('selection-single')">Selection Single</a>
+                    </li>
+                    <li>
+                        <a ng-click="addQuestion('selection-multiple')">Selection Multiple</a>
+                    </li>
+                </ul>
+			</li>
+			<li ng-hide="section.collapse">
+				<a ng-click="section.collapse = true"><i class="fa fa-minus-square"></i></a>
+			</li>
+			<li ng-show="section.collapse">
+				<a ng-click="section.collapse = false"><i class="fa fa-plus-square"></i></a>
+			</li>
+			<li>
+				<a><i class="fa fa-reorder"></a></i>
+			</li>
+		</ul>
+	</div>
+	<ul class="section-body" ng-hide="section.collapse">
+		<question section="section" question="question" ng-repeat="question in section.questions | orderBy: order"></question>
+	</ul>
+</section>

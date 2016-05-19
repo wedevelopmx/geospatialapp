@@ -1,0 +1,5 @@
+<li class="answer">
+	<input type="checkbox" ng-if="question.type == 'selection-multiple' " disabled>
+	<input type="radio" ng-if="question.type == 'selection-single' " disabled>
+	<input ng-model="answer.title" ng-change="answerUpdate()" type="text" placeholder="Answer">
+</li>

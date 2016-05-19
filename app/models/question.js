@@ -1,20 +1,19 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {
-  var Project = sequelize.define("Project", {
+  var Question = sequelize.define("Question", {
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
-    country: DataTypes.TEXT,
-    state: DataTypes.TEXT,
-    city: DataTypes.TEXT,
-    postalcode: DataTypes.TEXT,
-    lat: DataTypes.BIGINT,
-    lon: DataTypes.BIGINT
+    type: DataTypes.TEXT,
+    order: DataTypes.INTEGER,
+    required: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate: function(models) {
+        
+        Question.hasMany(models.Answer, { as: 'answers' });
 
-        Project.belongsTo(models.User, {
+        Question.belongsTo(models.Section, {
           onDelete: "CASCADE",
           foreignKey: {
             allowNull: false
@@ -24,5 +23,5 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  return Project;
+  return Question;
 };
