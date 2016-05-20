@@ -5,7 +5,19 @@
 		    	<h2 ng-bind="survey.title"></h2>
 		    	<small ng-bind="survey.description"></small>
 		    </div>
-		    <div class="card-body">
+		    <div class="card-body" style="padding:1rem;">
+		    	<table class="table">
+		    		<thead>
+		    			<th>Section</th>
+		    			<th>No. Questions</th>
+		    		</thead>
+		    		<tbody>
+			    		<tr ng-repeat="section in survey.sections">
+			    			<td ng-bind="section.title"></td> 
+			    			<td ng-bind="section.qno"></td>
+			    		</tr>
+			    	</tbody>
+		    	</table>
 		    </div>
 		    <div class="card-footer">
 		    	<ul class="card-actions">

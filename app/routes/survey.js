@@ -6,7 +6,19 @@ var models  = require('../models');
 router
 	.get('/', function(req, res, next) {
 		models.Survey.findAll({
-			include: [ { model: models.Section, as: 'sections' } ] 
+			attributes: ['id', 'title', 'description'],
+			include: [{ 
+					model: models.Section, 
+					as: 'sections',
+					attributes: ['id', 'title', 'description', 'order',
+						[models.sequelize.fn('COUNT', models.sequelize.col('sections.questions.sectionId')), 'qno']],
+					include: [{ 
+						model: models.Question,
+						as: 'questions',
+						attributes:[]
+					}]
+				}],
+			group: ['sections.questions.sectionId']
 		}).then(function(surveys) {
 			res.json(surveys);
 		});

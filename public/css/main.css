@@ -7942,6 +7942,9 @@ body:not(.sw-toggled) #sidebar {
 .card-body.card-padding-sm {
   padding: 15px;
 }
+.card-footer {
+  border-top: 1px solid #f7f7f7;
+}
 .card-header:not(.ch-alt):not([class*="bgm-"]) + .card-padding {
   padding-top: 0;
 }
