@@ -47,7 +47,8 @@ angular.module('geospatial')
 
 				$scope.addAnswer = function(question) {
 					$scope.question.answers.push({
-						QuestionId: $scope.question.id
+						QuestionId: $scope.question.id,
+						order: $scope.question.answers.length + 1
 					});
 					console.log($scope.question.answers);
 				}

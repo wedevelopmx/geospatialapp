@@ -22,7 +22,7 @@
 	</div>
 	<div class="answers-box" ng-hide="question.collapse">
 		<ul class="answers">
-			<answer question="question" answer="answer" ng-repeat="answer in question.answers"></answer>
+			<answer question="question" answer="answer" ng-repeat="answer in question.answers | orderBy: answer.order"></answer>
 		</ul>
 		<div class="settings">
 			<i class="fa fa-question-circle"></i>

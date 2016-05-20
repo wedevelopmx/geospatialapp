@@ -32,6 +32,6 @@
 		</ul>
 	</div>
 	<ul class="section-body" ng-hide="section.collapse">
-		<question section="section" question="question" ng-repeat="question in section.questions | orderBy: order"></question>
+		<question section="section" question="question" ng-repeat="question in section.questions | orderBy: question.order"></question>
 	</ul>
 </section>
