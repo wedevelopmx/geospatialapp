@@ -31,14 +31,15 @@ angular.module('geospatial')
 				}, 10000);
 
 
-				$scope.$watch('question.collapse', function(newVal) {
-					if(newVal) {
-						QuestionService.get($scope.question.id).$promise
-							.then(function(question) {
-								$scope.question.questions = question.questions;
-							});
-					}
-				}, true);
+				// $scope.$watch('question.collapse', function(newVal) {
+				// 	if($scope.question.id !== undefined && newVal == false) {
+				// 		console.log('watch - ' + newVal);
+				// 		QuestionService.get($scope.question.id).$promise
+				// 			.then(function(question) {
+				// 				$scope.question.questions = question.questions;
+				// 			});
+				// 	}
+				// }, true);
 
 				$scope.questionUpdate = function(question) {
 					$scope.question.changed = true;

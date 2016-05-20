@@ -28,7 +28,7 @@ router
 			})
 			.then(function(answer) {
 			  	answer.update(req.body).then(function(answer) {
-			  		res.json(question);
+			  		res.json(answer);
 			  	});
 			});
 	});

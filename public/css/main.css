@@ -8513,12 +8513,13 @@ fieldset[disabled] .btn-inverse:active {
 .question .answers-box .answer {
   padding: .5rem;
 }
-.question .answers-box .answer input {
+.question .answers-box .answer input[type="text"] {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #cecece;
+  width: 90%;
 }
-.question .answers-box .answer input:hover {
+.question .answers-box .answer input[type="text"]:hover {
   border-bottom: 1px solid #FF5252;
 }
 .question .answers-box .answer .actions {

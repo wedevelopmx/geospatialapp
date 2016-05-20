@@ -13,7 +13,7 @@ angular.module('geospatial')
 
 				$scope.saveSection = function(){
 					$scope.section.updating = true;
-					
+
 					SectionService.save($scope.section).$promise
 		                .then(function(section) {
 		                    console.log(section);
@@ -33,7 +33,7 @@ angular.module('geospatial')
 				}, 10000);
 
 				$scope.$watch('section.collapse', function(newVal) {
-					if(newVal) {
+					if($scope.section.id !== undefined && newVal) {
 						SectionService.get($scope.section.id).$promise
 							.then(function(section) {
 								$scope.section.questions = section.questions;

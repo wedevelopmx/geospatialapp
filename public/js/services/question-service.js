@@ -14,15 +14,15 @@ angular.module('geospatial')
 	}
 	
 	this.get = function(id) {
-		return self.userAPI.get({surveyId:id});
+		return self.userAPI.get({questionId:id});
 	}
 	
 	this.remove = function(id) {
-		return self.userAPI.delete({surveyId:id});
+		return self.userAPI.delete({questionId:id});
 	}
 	
 	this.update = function(id, object) {
-		return self.userAPI.update({surveyId:id}, object);
+		return self.userAPI.update({questionId:id}, object);
 	}
 	
 	this.save = function(object) {

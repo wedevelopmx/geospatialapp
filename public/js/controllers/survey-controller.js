@@ -17,12 +17,13 @@ angular.module('geospatial')
 		};
 
 		$scope.addSection = function() {
-            
+
             $scope.survey.sections.push({
                 SurveyId: $scope.survey.id,
 				order: $scope.survey.sections.length  + 1, 
 				title: '',
 				questions: [],
+                changed: false,
 				collapse: false
 			});
 		};
@@ -39,37 +40,6 @@ angular.module('geospatial')
             	.then(function(survey) {
             		$scope.survey = survey;
                     console.log(survey);
-            		//Single text box, multiple choice, matrix
-            		// $scope.survey.sections = [
-            		// 	{ id: 1, order: 1, title: 'Caracteristicas general del hogar',
-            		// 		questions: [
-            		// 			{ id: 1, order: 1, title: 'Question #1', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 2, order: 2,  title: 'Question #2', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 3, order: 3,  title: 'Question #3', type: 'multiple', checkbox: false, answers: 'A|B|C|D' }
-            		// 		]
-            		// 	},
-            		// 	{ id: 2, order: 2, title: 'Datos de la vivienda',
-            		// 		questions: [
-            		// 			{ id: 1, order: 1,  title: 'Question #1', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 2, order: 2,  title: 'Question #2', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 3, order: 3,  title: 'Question #3', type: 'multiple', checkbox: false, answers: 'A|B|C|D' }
-            		// 		]
-            		// 	},
-            		// 	{ id: 3, order: 3, title: 'Educacion',
-            		// 		questions: [
-            		// 			{ id: 1, order: 1,  title: 'Question #1', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 2, order: 2,  title: 'Question #2', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 3, order: 3,  title: 'Question #3', type: 'multiple', checkbox: false, answers: 'A|B|C|D' }
-            		// 		]
-            		// 	},
-            		// 	{ id: 4, order: 4, title: 'Salud',
-            		// 		questions: [
-            		// 			{ id: 1, order: 1,  title: 'Question #1', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 2, order: 2,  title: 'Question #2', type: 'multiple', checkbox: false, answers: 'A|B|C|D' },
-            		// 			{ id: 3, order: 3,  title: 'Question #3', type: 'multiple', checkbox: false, answers: 'A|B|C|D' }
-            		// 		]
-            		// 	}
-            		// ];
 
             		$scope.section = {};
             	});
