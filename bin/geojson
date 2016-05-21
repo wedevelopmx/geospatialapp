@@ -26,7 +26,7 @@ models.sequelize.sync().then(function () {
       console.log(mexico.name + ' has been created with id: ' + mexico.id);
 
       var geo;
-      fs.readFile(__dirname + '/../db/geo/states.geojson', 'utf8', function (err, data) {
+      fs.readFile(__dirname + '/../private/data_init/geo/states.geojson', 'utf8', function (err, data) {
         if (err) throw err;
         
         geo = JSON.parse(data);
@@ -38,7 +38,7 @@ models.sequelize.sync().then(function () {
 
           //Create a geojson file for this feature(state)
           geojson.features = [state];
-          fs.writeFileSync(__dirname + '/../public/json/states/' + parseInt(state.properties.CVE_ENT) + '.json', 
+          fs.writeFileSync(__dirname + '/../private/data_init/geo/states/' + parseInt(state.properties.CVE_ENT) + '.json', 
             JSON.stringify(geojson) , 'utf-8'); 
 
           states.push({

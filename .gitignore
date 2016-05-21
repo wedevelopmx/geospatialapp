@@ -28,6 +28,7 @@ node_modules
 bower_components
 public/vendor
 db
+private/data_init/geo
 
 # Debug log from npm
 npm-debug.log
