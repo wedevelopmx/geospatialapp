@@ -1,5 +1,5 @@
 angular.module('geospatial')
-	.controller('DashboardController', ['$scope', 'ProjectService', 'TemplateService', function($scope, ProjectService, TemplateService) {
+	.controller('DashboardController', ['$scope', 'ProjectService', 'TemplateService', 'CountryService', function($scope, ProjectService, TemplateService, CountryService) {
 		ProjectService.query().$promise.then(function(data) {
             //console.log(data);
             for (var i = 0; i < data.length; i++) {
@@ -22,10 +22,50 @@ angular.module('geospatial')
                     zoom: 2
                 }
             }
-        };     
+        };
+
+        $scope.$watch('state', function(newState, oldState) {
+            if(newState !== undefined)
+                $scope.layersHash[newState.name]
+                    .style.fill.color = 'rgba(3, 137, 156, 0.8)';
+            if(oldState !== undefined)
+                $scope.layersHash[oldState.name]
+                    .style.fill.color = 'rgba(3, 137, 156, 0.4)'; 
+        });
+
+        CountryService.query().$promise.then(function(data) {
+            $scope.country = data[0];
+            $scope.state = data[0].states[0];
+
+            $scope.countries = data;
+
+            $scope.layersHash = {};
+            $scope.layers = [];
+            angular.forEach($scope.country.states, function(state, key) {
+                var layer = {
+                    name: state.name,
+                    source: {
+                        type: 'GeoJSON',
+                        url: 'json/states/' + state.id + '.json'
+                    },
+                    style: {
+                        fill: {
+                            color: 'rgba(3, 137, 156, 0.4)'
+                        },
+                        stroke: {
+                            color: 'white',
+                            width: 1
+                        }
+                    }
+                };
+
+                $scope.layersHash[state.name] = layer;
+
+                $scope.layers.push(layer);
+
+            });
+        });
 	}]);
-
-
 
 /* Map Sample
         angular.extend($scope, {

@@ -7,7 +7,8 @@ angular.module('geospatial')
 			transclude: true,
 			scope: {
 				markers: '=',
-				marker: '='
+				marker: '=',
+				layers: '='
 			},
 			controller: ['$scope', function($scope) {
 				$scope.projection = 'EPSG:4326';
