@@ -1,12 +1,11 @@
 <div class="full-screen">
     <div class="map">
-        <markersmap marker="marker" markers="projects" layers="layers"></markersmap>
+        <markersmap marker="marker" markers="projects" indicator="indicator"></markersmap>
     </div>
     <div class="data">
         <div class="filters">
-            <select ng-options="country.name for country in countries track by country.id" ng-model="country"></select>
 
-            <select ng-options="state.name for state in country.states track by state.id" ng-model="state" ng-change="updateState()"></select>
+            <select ng-options="indicator.title for indicator in indicators track by indicator.id" ng-model="indicator" ng-change=""></select>
 
         </div>
         <div class="project" ng-repeat="project in projects">

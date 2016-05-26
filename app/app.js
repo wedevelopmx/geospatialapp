@@ -20,6 +20,7 @@ var section = require('./routes/section');
 var question = require('./routes/question');
 var answer = require('./routes/answer');
 var country = require('./routes/country');
+var indicator = require('./routes/indicator');
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use('/section', section);
 app.use('/question', question);
 app.use('/answer', answer);
 app.use('/country', country);
+app.use('/indicator', indicator);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

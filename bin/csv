@@ -1,0 +1,43 @@
+var fs = require('fs');
+var csv = require('fast-csv');
+var models = require("../app/models");
+
+//var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_agua.csv');
+//var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_drenaje.csv');
+var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_electricidad.csv');
+
+models.sequelize.sync().then(function () {
+  
+  models.Indicator
+    .findOrCreate({ where: { title: 'Disponibilidad de Electricidad'}, defaults: {  title: 'Disponibilidad de Electricidad' }})
+    .spread(function(indicator, created) {
+      console.log(indicator.get({
+        plain: true
+      }))
+
+      models.State.findAll({
+          attributes: [ 'id', 'name', 'order']
+        }).then(function(states) {
+          var hash = {};
+
+          for(i in states)
+            hash[states[i].name] = states[i];
+
+          var csvStream = csv()
+            .on("data", function(data){
+                 console.log(data);
+                 console.log(hash[data[0]].dataValues);
+                 console.log('');
+
+                hash[data[0]].addIndicator(indicator, { value: data[1] });
+
+            })
+            .on("end", function(){
+                 console.log("done");
+            });
+
+          stream.pipe(csvStream);      
+        });
+
+  });
+});
