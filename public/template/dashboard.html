@@ -1,15 +1,34 @@
 <div class="full-screen">
     <div class="map">
-        <markersmap marker="marker" markers="projects" indicator="indicator"></markersmap>
+        <markersmap marker="marker" markers="projects" indicator="indicator" filters="filters"></markersmap>
     </div>
     <div class="data">
         <div class="filters">
-
-            <select ng-options="indicator.title for indicator in indicators track by indicator.id" ng-model="indicator" ng-change=""></select>
-
+            <div class="filter" ng-repeat="filter in filters">
+                <span ng-bind="filter.title"></span>
+                <ul class="actions">
+                    <li>
+                        <a><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="slider-container">
+                    <div slider class="input-slider-range" ng-from="filter.from" ng-to="filter.to" start=0 end=100></div>
+                    <div class="slider-range">
+                        <span class="slider-from" ng-cloak>{{filter.from}} {{filter.unit}}</span>
+                        <span class="slider-to" ng-cloak>{{filter.to}} {{filter.unit}}</span>
+                        <span class="clear"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="project" ng-repeat="project in projects">
-            <projectsummary project="project" actions="actions"></projectsummary>
+        <div class="filter-form">
+             <select ng-options="indicator.title for indicator in indicators track by indicator.id" ng-model="indicator" ng-change=""></select>
+             <a class="btn bgm-red btn-float waves-effect" ng-click="addFilter()"><i class="fa fa-plus"></i></a>
+        </div>
+        <div class="projects">
+            <div class="project" ng-repeat="project in projects">
+                <projectsummary project="project" actions="actions"></projectsummary>
+            </div>
         </div>
     </div>
 </div>

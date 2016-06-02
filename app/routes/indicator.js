@@ -6,7 +6,7 @@ var models  = require('../models');
 router
 	.get('/', function(req, res, next) {
 		models.Indicator.findAll({
-			attributes: ['id', 'title']
+			attributes: ['id', 'title', 'max', 'unit']
 		}).then(function(countries) {
 			res.json(countries);
 		});
@@ -14,7 +14,7 @@ router
 	.get('/:id', function(req, res, next) {
 		//req.params.id
 		models.Indicator.findOne({
-			attributes: ['id', 'title'],
+			attributes: ['id', 'title', 'max', 'unit'],
 			include: [ { 
 				attributes: ['id', 'name', 'order'],
 				model: models.State, 

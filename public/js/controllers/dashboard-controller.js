@@ -33,4 +33,11 @@ angular.module('geospatial')
             $scope.indicators = data;
             $scope.indicator = data[0];
         });
+
+        $scope.filters = [];
+        $scope.addFilter = function() {
+            $scope.indicator.from = 10;
+            $scope.indicator.to = 40;
+            $scope.filters.push($scope.indicator);
+        }
 	}]);

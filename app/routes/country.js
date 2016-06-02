@@ -10,7 +10,7 @@ router
 			include: [ { 
 				model: models.State, 
 				as: 'states',
-				attributes: [ 'id', 'name', 'order']
+				attributes: [ 'id', 'name', 'order', 'lat', 'lon']
 			} ]
 		}).then(function(countries) {
 			res.json(countries);

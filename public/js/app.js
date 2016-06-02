@@ -1,4 +1,4 @@
-angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-directive', 'angular-underscore', 'ui.bootstrap'])
+angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-directive', 'angular-underscore', 'ui.bootstrap', 'nouislider'])
 	.config(['$httpProvider', function($httpProvider) {  
 		// $httpProvider.interceptors.push(function($q, $location,$rootScope) { 
 		// 	return { 

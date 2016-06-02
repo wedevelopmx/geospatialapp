@@ -16,8 +16,6 @@
 
 .data {
     position: fixed;
-    display: flex;
-    flex-flow: row wrap;
     top: 50px;
     left: 0;
     bottom: 0;
@@ -25,8 +23,52 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     background: #ffffff;
-    padding: 1rem;
+    .filters {
+        padding: 1rem;
+        width: 100%;
+        position: relative;
+    }
+    .filter-form {
+        padding: 1rem;
+        background: #f5f5f5;
+        width: 100%;
+        position: relative;
+    }
+    .projects { 
+        padding: 1rem;
+        width: 100%;
+        position: relative;
+    }
 }
+
+.filter {
+    padding: 1rem 0rem;
+    margin: 2rem 0rem;
+    border-bottom: 1px solid #dce0e0;
+    span {
+        padding-top: 11px !important;
+        font-size: 1.7rem;
+    }
+    .actions {
+        float: right;
+    }
+    .input-slider-range {
+        margin: 1rem 0rem;
+    }
+    .slider-container {
+        .slider-from {
+            float: left;
+        } 
+        .slider-to {
+            float: right;
+        }
+        .clear {
+            clear: left; 
+            display: block; 
+        }
+    }
+}
+
 
 .map {
     position: fixed;
@@ -37,7 +79,6 @@
     display: block;
     width: 40%;
 }
-
 
 .search-box {
 	background-color: #ffffff;

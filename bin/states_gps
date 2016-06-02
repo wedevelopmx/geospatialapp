@@ -1,0 +1,37 @@
+var Client = require('node-rest-client').Client;
+var utf8 = require('utf8');
+var models = require("../app/models");
+
+
+models.sequelize.sync().then(function () {
+
+    //Reading all States
+    models.State.findAll({
+        attributes: [ 'id', 'name', 'order']
+      }).then(function(states) {
+        
+        states.forEach(function(state) {
+        	var url = 'http://nominatim.openstreetmap.org/search/' + utf8.encode(state.name) + '?format=json&addressdetails=1&limit=1';
+ 
+			var client = new Client();
+			 
+			// direct way 
+			client.get(url, function (data, response) {
+				var stateName = data[0].display_name;
+				stateName = stateName.substring(0, stateName.indexOf(','));
+				// parsed response body as js object 
+				console.log(stateName + ' ' + data[0].lat + ' - ' + data[0].lon);
+
+				if (state) { // if the record exists in the db
+					state.updateAttributes({
+					  lat: data[0].lat,
+					  lon: data[0].lon
+					}).then(function() {});
+				}
+			});
+        });
+        
+      });
+
+   
+});

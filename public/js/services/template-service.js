@@ -3,7 +3,8 @@ angular.module('geospatial')
 		var _self = this;
 
 		_self.templates = {
-			'project-popup': null
+			'project-popup': null,
+			'state-popup': null
 		};
 
 		for(templateName in _self.templates) {
@@ -21,7 +22,7 @@ angular.module('geospatial')
 
 		this.compileTemplate = function(templateName, data) {
 			var template = _.template(_self.templates[templateName]);
-			//console.log(data);
+			//console.log(_self.templates[templateName]);
 			return template(data);
 		};
 	}]);

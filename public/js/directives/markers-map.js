@@ -8,16 +8,23 @@ angular.module('geospatial')
 			scope: {
 				markers: '=',
 				marker: '=',
-				indicator: '='
+				indicator: '=',
+				filters: '='
 			},
-			controller: ['$scope', 'CountryService', 'IndicatorService', function($scope, CountryService, IndicatorService) {
+			controller: ['$scope', 'CountryService', 'IndicatorService', 'TemplateService', function($scope, CountryService, IndicatorService, TemplateService) {
 				$scope.projection = 'EPSG:4326';
 				
 				//Default Position
 				$scope.center = {
 	                lat: $scope.marker.$resolved == undefined ? $scope.marker.lat : 19.4326, 
                 	lon: $scope.marker.$resolved == undefined ? $scope.marker.lon : -99.1332, 
-	                zoom: 2
+	                zoom: 5
+	            };
+
+	            $scope.defaults = {
+	                events: {
+	                    layers: [ 'mousemove', 'click']
+	                }
 	            };
 
 	            //Loading Countries
@@ -25,11 +32,15 @@ angular.module('geospatial')
 	            	$scope.country = data[0];
 		            $scope.countries = data;
 
+		            $scope.statesHash = {};
+
 		            $scope.layersHash = {};
 		            $scope.layers = [];
+
 		            angular.forEach($scope.country.states, function(state, key) {
+
 		                var layer = {
-		                    name: state.name,
+		                    name: state.id,
 		                    source: {
 		                        type: 'GeoJSON',
 		                        url: 'json/states/' + state.id + '.json'
@@ -42,12 +53,33 @@ angular.module('geospatial')
 		                            color: 'white',
 		                            width: 1
 		                        }
-		                    }
+		                    },
+		                    state: state //<--this is the marker
 		                };
 
 		                $scope.layersHash[state.name] = layer;
 
 		                $scope.layers.push(layer);
+
+		                layer.state.show = false;
+
+			        	$scope.$on('openlayers.layers.' + layer.name + '.click', function(event, feature) {
+				            $scope.$apply(function(scope) {
+				            	angular.forEach($scope.country.states, function(state, key) {
+				            		state.show = false;
+				            		// if(state.label !== undefined) 
+				            		// 	state.label.show = false;
+				            	});
+				            	event.targetScope.properties.state.show = true;  
+				            	event.targetScope.properties.state.
+					            	label = {
+					                    message: TemplateService.compileTemplate('state-popup', event.targetScope.properties.state),
+					                    show: true,
+					                    showOnMouseOver: false
+					                }
+				            });
+				        });
+			        
 
 		            });
 		        });
@@ -67,18 +99,50 @@ angular.module('geospatial')
 		            return 'rgba(255, 0, 0, 0.4)';	
 		        }
 
-		        $scope.$watch('indicator', function(newInd, oldInd) {
-		            if(newInd.id !== undefined) {
-		                IndicatorService.get(newInd.id).$promise.then(function(data) {
-		                    angular.forEach(data.States, function(state, key) {
-		                        $scope.layersHash[state.name]
-		                            .style.fill.color = measure(parseFloat(state.Measurement.value), 100);
-		                    });
-		                });
-		            }
-		                
-		        });
+		        $scope.$watch('filters', function(newInd, oldInd) {
+		        	if(newInd !== undefined) {
+		        		//Loading every filter
+		        		angular.forEach($scope.filters, function(filter, filterKey) {
+		        			//Loading indicator
+		        			IndicatorService.get(filter.id).$promise
+			        			.then(function(indicator) {
+			        				//For each state
+				                    angular.forEach(indicator.States, function(state, key) {
+				                    	var layer = $scope.layersHash[state.name];
+				                    	var value = parseFloat(state.Measurement.value);
+				                    	layer.state.data = layer.state.data || {};
+				                    	layer.state.data[indicator.title] = { 
+				                    		value: value,
+				                    		display: true
+				                    	};
 
+				                    	//Assign a color based on filters
+				                    	if(value > filter.from && value < filter.to) {
+				                    		layer.state.data[indicator.title].display = true;
+				                    	} else {
+				                    		layer.state.data[indicator.title].display = false;
+				                    	}
+
+				                        //This is the last filter to be evaluated
+				                        if(filterKey == $scope.filters.length - 1) {
+				                        	var avg = 0.0;
+				                        	var show = true;
+				                        	layer.state.avg = 0.0;
+				                        	angular.forEach(layer.state.data, function(data, key) {
+				                        		avg = avg + parseFloat(data.value); 
+				                        		show = show && data.display;
+				                        	});
+
+				                        	layer.state.avg = avg / parseFloat($scope.filters.length);
+
+				                        	layer.style.fill.color = measure(layer.state.avg, 100);
+				                        	layer.display = show;
+				                        }
+				                    });
+				                });
+		        		});
+		        	}
+		        }, true); //<-- Deep watch!!!
 			}],
 			link: function(scope, elem, attrs) {
 				//Update center once promise has been resolved

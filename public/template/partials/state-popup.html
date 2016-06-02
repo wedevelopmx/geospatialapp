@@ -1,0 +1,14 @@
+<div class="popup">
+    <div class="popup-header ch-alt m-b-20">
+        <h2><%= name %></h2>
+    </div>
+
+    <div class="popup-body popup-padding">
+        <ul class="popup-list">
+        	<% _.map(data, function(obj, key) {%>
+        	<li><%= key %>:  <%= obj.value %> (<%= obj.display %>) </li>
+        	<% })%>
+            <li>Average: <%= avg %></li>
+        </ul>
+    </div>
+</div>

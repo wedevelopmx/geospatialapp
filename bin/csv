@@ -2,42 +2,65 @@ var fs = require('fs');
 var csv = require('fast-csv');
 var models = require("../app/models");
 
-//var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_agua.csv');
-//var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_drenaje.csv');
-var stream = fs.createReadStream(__dirname + '/../private/data_init/csv/disponibilidad_de_electricidad.csv');
+var csvFiles = [
+  { name: 'Disponibilidad de Agua', unit: '%', file: '/../private/data_init/csv/disponibilidad_de_agua.csv'},
+  { name: 'Disponibilidad de Drenaje', unit: '%', file: '/../private/data_init/csv/disponibilidad_de_drenaje.csv'},
+  { name: 'Disponibilidad de Electricidad', unit: '%', file: '/../private/data_init/csv/disponibilidad_de_electricidad.csv'},
+  { name: 'Poblacion', unit: 'Hab.', file: '/../private/data_init/csv/poblacion_estatal.csv'}
+];
 
 models.sequelize.sync().then(function () {
-  
-  models.Indicator
-    .findOrCreate({ where: { title: 'Disponibilidad de Electricidad'}, defaults: {  title: 'Disponibilidad de Electricidad' }})
-    .spread(function(indicator, created) {
-      console.log(indicator.get({
-        plain: true
-      }))
+  //Iterating all CSV
+  csvFiles.forEach(function(csvFile) {
+    console.log('Creating: ' + csvFile.name);
 
-      models.State.findAll({
-          attributes: [ 'id', 'name', 'order']
-        }).then(function(states) {
-          var hash = {};
+    //Creating or reading Indicator
+    models.Indicator
+      .findOrCreate({ where: { title: csvFile.name}, defaults: {  title: csvFile.name, unit: csvFile.unit }})
+      .spread(function(indicator, created) {
+        console.log(indicator.get({
+          plain: true
+        }))
 
-          for(i in states)
-            hash[states[i].name] = states[i];
+        //Reading all States
+        models.State.findAll({
+            attributes: [ 'id', 'name', 'order']
+          }).then(function(states) {
+            var measure = [];
+            var hash = {};
 
-          var csvStream = csv()
-            .on("data", function(data){
-                 console.log(data);
-                 console.log(hash[data[0]].dataValues);
-                 console.log('');
+            //Storing States
+            for(i in states)
+              hash[states[i].name] = states[i];
 
-                hash[data[0]].addIndicator(indicator, { value: data[1] });
+            //Opening CSV File
+            var stream = fs.createReadStream(__dirname + csvFile.file);    
 
-            })
-            .on("end", function(){
-                 console.log("done");
-            });
+            //Reading CSV File
+            var csvStream = csv()
+              .on("data", function(data){
+                  measure.push({
+                    StateId: hash[data[0]].id,
+                    IndicatorId: indicator.id,
+                    value: parseFloat(data[1])
+                  });
+              })
+              .on("end", function(){
+                for(i in measure) {
+                  console.log(measure[i]);
+                }
 
-          stream.pipe(csvStream);      
-        });
+                //Saving new measures
+                models.Measurement.bulkCreate(measure, { ignoreDuplicates: true })
+                .then(function (m) {
+                    console.log(m.length);
+                });
+                console.log("done");
+              });
 
+            stream.pipe(csvStream);      
+          });
+
+    });
   });
 });
