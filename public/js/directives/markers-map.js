@@ -73,10 +73,22 @@ angular.module('geospatial')
 				            	event.targetScope.properties.state.show = true;  
 				            	event.targetScope.properties.state.
 					            	label = {
-					                    message: TemplateService.compileTemplate('state-popup', event.targetScope.properties.state),
+					                    message: '<span>Placeholder</span>',
 					                    show: true,
-					                    showOnMouseOver: false
-					                }
+					                    showOnMouseOver: true
+					                };
+					            
+					            TemplateService.compileTemplate('state-popup', event.targetScope.properties.state)
+					                    .then(function(popup) {
+					                    	event.targetScope.properties.state.
+								            	label = {
+								                    message: popup,
+								                    show: true,
+								                    showOnMouseOver: true
+								                };
+
+								            //console.log(event.targetScope.properties.state);
+					                    });
 				            });
 				        });
 			        

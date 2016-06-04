@@ -3,13 +3,17 @@ angular.module('geospatial')
         function($scope, ProjectService, TemplateService, CountryService, IndicatorService) {
 
 		ProjectService.query().$promise.then(function(data) {
-            //console.log(data);
             for (var i = 0; i < data.length; i++) {
-                data[i].label = {
-                    message: TemplateService.compileTemplate('project-popup', data[i]),
-                    show: false,
-                    showOnMouseOver: true
-                };
+                var projectMarker = data[i];
+                TemplateService.compileTemplate('project-popup', projectMarker)
+                    .then(function(popup) {
+                        console.log(projectMarker);
+                        projectMarker.label = {
+                            message: popup,
+                            show: false,
+                            showOnMouseOver: true
+                        };
+                    });
             }
             $scope.projects = data;
         });

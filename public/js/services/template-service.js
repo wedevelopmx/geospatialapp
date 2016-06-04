@@ -1,5 +1,5 @@
 angular.module('geospatial')
-	.service('TemplateService', ['$http', function($http) {
+	.service('TemplateService', ['$http', '$q',  function($http, $q) {
 		var _self = this;
 
 		_self.templates = {
@@ -7,22 +7,28 @@ angular.module('geospatial')
 			'state-popup': null
 		};
 
-		for(templateName in _self.templates) {
-			$http({
-			  method: 'GET',
-			  url: '/template/partials/' + templateName + '.html'
-			}).then(function successCallback(response) {
-			    _self.templates[templateName] = response.data;
-			  }, function errorCallback(response) {
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
-			  });
-		}
-
-
 		this.compileTemplate = function(templateName, data) {
-			var template = _.template(_self.templates[templateName]);
-			//console.log(_self.templates[templateName]);
-			return template(data);
+			var deferred = $q.defer();
+
+			if(_self.templates[templateName] == null) {
+				console.log('loading template');
+				$http({
+				  method: 'GET',
+				  url: '/template/partials/' + templateName + '.html'
+				}).then(function successCallback(response) {
+				    _self.templates[templateName] = response.data;
+				    var template = _.template(_self.templates[templateName]);
+					deferred.resolve(template(data));
+				  }, function errorCallback(response) {
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				    deferred.reject('<span>Error</span>');
+				  });
+			} else {
+				var template = _.template(_self.templates[templateName]);
+				deferred.resolve(template(data));	
+			}
+
+			return deferred.promise;
 		};
 	}]);
