@@ -1,0 +1,124 @@
+var models = require("../app/models");
+
+var submitSurvey = function(projectId, surveyId, userId) {
+  var projectSurvey = { 
+    projectId: projectId, 
+    surveyId: surveyId,
+    status: 'open'
+  };
+
+  models.ProjectSurvey.findOrCreate({ where: { projectId: projectId, surveyId: surveyId}, defaults: projectSurvey })
+  .spread(function(projectSurvey, created) {
+      projectSurvey = projectSurvey.get({plain: true});
+      models.Survey.findOne({ 
+        where: { id: projectSurvey.SurveyId }, 
+        include: [ { 
+          model: models.Section, 
+          as: 'sections',
+          attributes: ['id', 'title', 'description', 'order'],
+          include: [{ 
+            model: models.Question, 
+            as: 'questions',
+            attributes: ['id', 'title', 'description', 'order','type'],
+            include: [{
+              model: models.Answer,
+              as: 'answers',
+              attributes: ['id', 'title', 'type', 'order']
+            }]
+          }]
+        } ] 
+      })
+      .then(function(survey) {
+        survey = survey.get({plain: true});
+        var status = ['Complete', 'In Progress'];
+        var surveyStatus = Math.floor(Math.random() * status.length);  
+
+        //Creating a new Survey Submition
+        var submitedSurvey = models.SubmitedSurvey.build({
+          ProjectSurveyId : projectSurvey.id,
+          UserId: userId,
+          state: status[surveyStatus]
+        }).save().then(function(submitedSurvey) {
+          //Iterate Sections
+          survey.sections.forEach(function(survey, index) {
+            console.log(survey.title);
+            //Iterating Questions
+            survey.questions.forEach(function(question, index) {
+              console.log(' >' + question.title);
+
+              //Answering the question
+              var myAnswer = Math.floor(Math.random() * question.answers.length);  
+              var Answer = question.answers[myAnswer];
+
+              //Creating new Question Submition
+              var submitedQuestion = models.SubmitedQuestion.build({
+                SubmitedSurveyId: submitedSurvey.id,
+                QuestionId: question.id,
+                AnswerId: Answer.id
+              }).save().then(function(submitedQuestion) {
+                console.log('  -' + Answer.title);
+              });
+            });
+          });  
+        });
+      });
+  });  
+};
+
+models.sequelize.sync().then(function () {
+  submitSurvey(1, 1, 1);  
+});
+
+
+// var project = {
+//     title: 'Santa Maria',
+//     description: '',
+//     country: 'Mexico',
+//     state: 'San Luis Potosi',
+//     city: 'Santa Maria del Rio',
+//     postalcode: '78359',
+//     lat: '21.8031',
+//     lon: '-100.7337',
+//     UserId: 1
+//   };
+
+//   //Creating Base Project
+//   models.Project
+//     .findOrCreate({where: { title: project.title}, defaults: project })
+//     .spread(function(project, created) {
+//         //Loading Survey
+//         models.Survey.findOne({ 
+//           where: { id: 1 }, //<----- First Survey 
+//           include: [ { 
+//             model: models.Section, 
+//             as: 'sections',
+//             attributes: ['id', 'title', 'description', 'order'],
+//             include: [{ 
+//               model: models.Question, 
+//               as: 'questions',
+//               attributes: ['id', 'title', 'description', 'order','type'],
+//               include: [{
+//                 model: models.Answer,
+//                 as: 'answers',
+//                 attributes: ['id', 'title', 'type', 'order']
+//               }]
+//             }]
+//           } ] 
+//         })
+//         .then(function(survey) {
+//             survey = survey.get({plain: true});
+//             var submitedSurvey = models.submitedSurvey.build({});
+//             //Iterate Sections
+//             survey.sections.forEach(function(survey, index) {
+//               console.log(survey.title);
+//               survey.questions.forEach(function(question, index) {
+//                 console.log(' >' + question.title);
+//                 var myAnswer = Math.floor(Math.random() * question.answers.length);  
+
+//                 question.answers.forEach(function(answer, index) {
+//                   console.log((index == myAnswer ? '  x':'  -') + answer.title);
+//                 });
+//               });
+//             });
+//         });
+//     });

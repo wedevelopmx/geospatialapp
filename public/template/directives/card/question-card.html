@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header ch-alt m-b-20">
+        <h2>{{section.order + '.' + question.order + ' ' + question.title}}</h2>
+        <ul class="actions">
+            <li>
+                <a ng-click="see(project)"><i class="fa fa-eye"></i></a>
+            </li>
+            <li>
+                <a href="#/project/{{project.id}}" target="blank"><i class="fa fa-external-link"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body">
+        
+    </div>
+
+    <div class="card-body card-padding">
+        <div id="donut-chart-{{question.id}}" class="flot-chart-pie" style="height:300px;"></div>
+        <div class="flc-donut-{{question.id}} hidden-xs"></div>
+    </div>
+</div>

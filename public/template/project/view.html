@@ -1,48 +1,16 @@
-<div class="block-header">
-    <h2>View Project</h2>
-
-    <ul class="actions">
-        <li>
-            <a href="">
-                <i class="fa fa-trending-up"></i>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <i class="fa fa-check-all"></i>
-            </a>
-        </li>
-        <li class="dropdown" uib-dropdown="">
-            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="" uib-dropdown-toggle="">
-                <i class="fa fa-more-vert"></i>
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                    <a href="">Refresh</a>
-                </li>
-                <li>
-                    <a href="">Manage Widgets</a>
-                </li>
-                <li>
-                    <a href="">Widgets Settings</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-<div class="card">
-	<div class="card-header ch-alt m-b-20">
-	    <h2>{{project.title}} <small ng-bind="project.description"></small></h2>
-	    <ul class="actions">
-	        <li>
-	            <a href="#/project/{{project.id}}"><i class="fa fa-external-link"></i></a>
-	        </li>
-	    </ul>
-	</div>
-    <div class="card-body">
+<div class="single-project">
+    <div class="map-header">
         <singlemarkermap marker="project"></singlemarkermap>
     </div>
-
-	<div class="card-body card-padding" ng-bind="project.content"></div>
+    <div class="project-header ch-alt m-b-20">
+        <h2>{{project.title}} <small ng-cloak>{{project.city + ', ' + project.state + ', ' + project.country}}</small></h2>
+    </div>
+    <div class="project-body">
+    	<div class="card-container flex-grid">
+			<div class="grid-element" ng-repeat="survey in project.Surveys">
+		    	<surveycard project="project" survey="survey"></surveycard>
+		    </div>
+            <a class="btn bgm-red btn-float waves-effect" href="#/project"><i class="fa fa-plus"></i></a>
+		</div>
+    </div>
 </div>

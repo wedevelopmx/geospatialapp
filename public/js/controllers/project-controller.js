@@ -5,6 +5,7 @@ angular.module('geospatial')
             $scope.project = { lat: 19.4326, lon: -99.1332, UserId: 1};
         } else {
             $scope.project = ProjectService.get($routeParams.id);
+            
         }
 		
         //MapConfiguration

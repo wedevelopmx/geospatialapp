@@ -14,6 +14,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
 
+        Project.belongsToMany(models.Survey, {through: 'ProjectSurvey'});
+
         Project.belongsTo(models.User, {
           onDelete: "CASCADE",
           foreignKey: {

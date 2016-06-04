@@ -9,6 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
 
+        Answer.belongsToMany(models.SubmitedQuestion, {through: 'SubmitedAnswer'});
+
         Answer.belongsTo(models.Question, {
           onDelete: "CASCADE",
           foreignKey: {

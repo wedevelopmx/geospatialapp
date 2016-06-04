@@ -43,6 +43,11 @@ angular.module('geospatial', ['ngRoute', 'ngResource', 'ngStorage', 'openlayers-
 			controller: 'ProjectController',
 			permissions: ['admin']
 		},
+		'/projectSurvey/:id': {
+			templateUrl: 'template/project/survey/view.html',
+			controller: 'ProjectSurveyController',
+			permissions: ['admin']
+		},
 		'/project': {
 			templateUrl: 'template/project/new.html',
 			controller: 'ProjectController',

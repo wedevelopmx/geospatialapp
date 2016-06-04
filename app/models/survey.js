@@ -7,6 +7,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
+
+        Survey.belongsToMany(models.Project, {through: 'ProjectSurvey'});
         
         Survey.hasMany(models.Section, { as: 'sections' });
 

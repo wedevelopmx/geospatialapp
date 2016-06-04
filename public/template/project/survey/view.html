@@ -1,0 +1,8 @@
+<div class="single-project">
+    <div class="project-header ch-alt m-b-20">
+        <h2>{{survey.title}} <small ng-cloak>{{survey.description}}</small></h2>
+    </div>
+    <div class="project-body">
+    	<section-card ng-repeat="section in survey.sections" psi="projectSurveyId" section="section"></section-card>
+    </div>
+</div>

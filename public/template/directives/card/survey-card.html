@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header ch-alt m-b-20">
+        <h2>{{survey.title}} <small ng-cloak>{{survey.description}}</small></h2>
+        <ul class="actions">
+            <li>
+                <a href="#/projectSurvey/{{survey.ProjectSurvey.id}}" target="blank"><i class="fa fa-external-link"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body card-padding">
+        <div id="donut-chart-{{survey.id}}" class="flot-chart-pie" style="height:300px;"></div>
+        <div class="flc-donut-{{survey.id}} hidden-xs"></div>
+    </div>
+</div>

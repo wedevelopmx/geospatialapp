@@ -8466,6 +8466,68 @@ fieldset[disabled] .btn-inverse:active {
 .card .card-header.ch-alt.m-b-20 {
   min-height: 100px;
 }
+.project-body {
+  padding: 1rem;
+}
+.project-header {
+  position: relative;
+}
+@media screen and (min-width: 768px) {
+  .project-header:not(.ch-alt) {
+    padding: 23px 25px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .project-header:not(.ch-alt) {
+    padding: 18px;
+  }
+}
+.project-header h2 {
+  margin: 0;
+  line-height: 100%;
+  font-size: 30px;
+  font-weight: 400;
+}
+.project-header h2 small {
+  display: block;
+  margin-top: 5px;
+  color: #AEAEAE;
+  line-height: 160%;
+}
+@media screen and (min-width: 768px) {
+  .project-header.ch-alt {
+    padding: 20px 23px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .project-header.ch-alt {
+    padding: 18px 18px 28px;
+  }
+}
+.project-header.ch-alt:not([class*="bgm-"]) {
+  background-color: #f7f7f7;
+}
+.project-header[class*="bgm-"] h2,
+.project-header[class*="bgm-"] h2 small {
+  color: #fff;
+}
+.project-header .actions {
+  position: absolute;
+  right: 10px;
+  z-index: 2;
+  top: 15px;
+}
+.project-header .btn-float {
+  right: 25px;
+  bottom: -23px;
+  z-index: 1;
+}
+.flc-donut {
+  margin-top: 1rem;
+}
+.flc-donut table {
+  margin: 0 auto;
+}
 .single-marker-map {
   max-height: 200px;
 }
