@@ -34,30 +34,30 @@ Para poder instalar el ambiente local de este proyecto sera necesario instalar:
 
 1. Bajar el código
 
-```
-git clone https://github.com/wedevelopmx/geospatialapp.git
-```
+   ```
+   git clone https://github.com/wedevelopmx/geospatialapp.git
+   ```
 
 2. Bajar dependencias
 
-```
-cd geospatial
-npm install
-bower install
-```
+   ```
+   cd geospatial
+   npm install
+   bower install
+   ```
 
 3. Inicialización de datos
 
-Para poder utilizar OpenStreetMaps será necesario procesar y generar archivos GeoJSON que contengan las representaciones gráficas de cada estado de la república. El proceso de generación de dichos archivos esta descrito en:  
+   Para poder utilizar OpenStreetMaps será necesario procesar y generar archivos GeoJSON que contengan las representaciones gráficas de cada estado de la república. El proceso de generación de dichos archivos esta descrito en:  
 
->geospatialapp/private/data_init/
+   >geospatialapp/private/data_init/
 
 
 4. Levantar la aplicación
 
-```
-sudo node bin/www
-```
+   ```
+   sudo node bin/www
+   ```
 
 5. Acceder a la aplicación a través de localhost:3000
 
